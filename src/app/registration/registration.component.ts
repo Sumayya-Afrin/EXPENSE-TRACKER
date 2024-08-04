@@ -28,18 +28,14 @@ import { Router } from '@angular/router';
   styleUrl: './registration.component.scss',
 })
 export class RegistrationComponent {
-  register() {
-    throw new Error('Method not implemented.');
-  }
-
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.registerForm = this.fb.group(
       {
         name: ['', Validators.required],
         email: ['', Validators.required],
-        mobile: ['', [Validators.required, Validators.minLength(10)]],
+        mobile: ['', [Validators.required, Validators.maxLength(10)]],
         password: [
           '',
           [
@@ -82,18 +78,24 @@ export class RegistrationComponent {
   }
 
   passwordMatch: ValidatorFn = (
-    control: AbstractControl
+    formGroup: AbstractControl
   ): { [key: string]: boolean } | null => {
-    const password = control.get('password');
-    const confirmPassword = control.get('cpassword');
+    const password = formGroup.get('password');
+    const confirmPassword = formGroup.get('cpassword');
 
     if (
       password &&
       confirmPassword &&
       password.value !== confirmPassword.value
     ) {
-      return { passwordMisMatch: true };
+      return { 'passwordMisMatch ': true };
     }
     return null;
   };
+
+  register() {
+    if (this.registerForm.valid) {
+      this.router.navigate(['/login']);
+    }
+  }
 }

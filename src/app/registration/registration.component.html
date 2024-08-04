@@ -81,12 +81,19 @@
     <mat-error
       >Password should be minimum of <strong>8 characters </strong>
     </mat-error>
-    } @if(registerForm.hasError('passwordMisMatch')){
-    <mat-error> Password and Confirm Password do not match. </mat-error>
     }
+    <mat-error *ngIf="registerForm.hasError('passwordMismatch')">
+      Password and Confirm Password do not match.
+    </mat-error>
   </mat-form-field>
 
-  <button mat-raised-button type="submit" color="primary" routerLink="login">
+  <button
+    mat-raised-button
+    type="submit"
+    color="primary"
+    routerLink="login"
+    onclick="register()"
+  >
     Sign In
   </button>
 </form>
