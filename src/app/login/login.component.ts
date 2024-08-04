@@ -39,7 +39,6 @@ export class LoginComponent {
         '',
         [
           Validators.required,
-          Validators.email,
           Validators.minLength(8),
           Validators.maxLength(16),
         ],
@@ -55,8 +54,8 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
-  navigateToRegister() {
-    console.log('click');
-    this.router.navigate(['/register']);
-  }
+  // navigateToRegister() {
+  //   console.log('click');
+  //   this.router.navigate(['/register']);
+  // }
 }
