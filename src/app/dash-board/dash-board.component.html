@@ -4,5 +4,25 @@
   </mat-card>
   <mat-card-content>
     <p>Current Balance :</p>
+    <p>Recent Transactions:</p>
+    <mat-list>
+      <mat-list-item *ngFor="let transaction of transactions">
+        <span
+          >{{ transaction.date | date }} - {{ transaction.description }}:
+          {{ transaction.amount | currency }}</span
+        >
+      </mat-list-item>
+    </mat-list>
+    <p>Savings Goals:</p>
+    <mat-list>
+      <mat-list-item
+        >@for( goal of savingsGoals; track goal){
+        <span
+          >{{ goal.name }} - {{ goal.amountGoal | currency }} by
+          {{ goal.targetDate | date }}</span
+        >
+        }
+      </mat-list-item>
+    </mat-list>
   </mat-card-content>
 </div>
