@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,31 +35,39 @@ export class RegistrationComponent {
   registerForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.registerForm = this.fb.group({
-      name: ['', Validators.required],
-      mobile: ['', [Validators.required, Validators.minLength(10)]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(16),
+    this.registerForm = this.fb.group(
+      {
+        name: ['', Validators.required],
+        email: ['', Validators.required],
+        mobile: ['', [Validators.required, Validators.minLength(10)]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(16),
+          ],
         ],
-      ],
 
-      cpassword: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(16),
-          Validators.minLength(8),
+        cpassword: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(16),
+            Validators.minLength(8),
+          ],
         ],
-      ],
-    });
+      },
+      { Validators: this.passwordMatch }
+    );
   }
 
   get name() {
     return this.registerForm.get('name');
+  }
+
+  get email() {
+    return this.registerForm.get('email');
   }
 
   get mobile() {
@@ -70,4 +80,20 @@ export class RegistrationComponent {
   get cpassword() {
     return this.registerForm.get('cpassword');
   }
+
+  passwordMatch: ValidatorFn = (
+    control: AbstractControl
+  ): { [key: string]: boolean } | null => {
+    const password = control.get('password');
+    const confirmPassword = control.get('cpassword');
+
+    if (
+      password &&
+      confirmPassword &&
+      password.value !== confirmPassword.value
+    ) {
+      return { passwordMisMatch: true };
+    }
+    return null;
+  };
 }

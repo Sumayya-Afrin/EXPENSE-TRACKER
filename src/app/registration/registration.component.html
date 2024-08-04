@@ -12,6 +12,19 @@
     <mat-error>Name is <strong>required</strong></mat-error>
     }
   </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      type="email"
+      placeholder="Enter Email"
+      formControlName="email"
+    />
+    @if(email?.touched && email?.hasError('required') ){
+    <mat-error>Email is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
   <mat-form-field class="example-full-width">
     <mat-label>Phone Number</mat-label>
     <input
@@ -68,8 +81,12 @@
     <mat-error
       >Password should be minimum of <strong>8 characters </strong>
     </mat-error>
+    } @if(registerForm.hasError('passwordMisMatch')){
+    <mat-error> Password and Confirm Password do not match. </mat-error>
     }
   </mat-form-field>
 
-  <button mat-raised-button type="submit" color="primary">Sign In</button>
+  <button mat-raised-button type="submit" color="primary" routerLink="login">
+    Sign In
+  </button>
 </form>
