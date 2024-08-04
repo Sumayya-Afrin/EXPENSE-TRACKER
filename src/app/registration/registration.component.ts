@@ -44,6 +44,15 @@ export class RegistrationComponent {
           Validators.maxLength(16),
         ],
       ],
+
+      cpassword: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(16),
+          Validators.minLength(8),
+        ],
+      ],
     });
   }
 
@@ -57,5 +66,8 @@ export class RegistrationComponent {
 
   get password() {
     return this.registerForm.get('password');
+  }
+  get cpassword() {
+    return this.registerForm.get('cpassword');
   }
 }

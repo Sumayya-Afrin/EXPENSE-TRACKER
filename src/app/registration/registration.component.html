@@ -21,10 +21,10 @@
       formControlName="mobile"
     />
     @if(mobile?.touched && mobile?.hasError('required') ){
-    <mat-error>Password is <strong>required</strong></mat-error>
+    <mat-error>Phone number is <strong>required</strong></mat-error>
     } @if(mobile?.touched && mobile?.hasError('maxlength') ){
     <mat-error
-      >Password should not exceed <strong>10 characters </strong>
+      >Phone number should not exceed <strong>10 characters </strong>
     </mat-error>
     }
   </mat-form-field>
@@ -44,6 +44,27 @@
       >Password should not exceed <strong>16 characters </strong>
     </mat-error>
     } @if(password?.touched && password?.hasError('minlength') ){
+    <mat-error
+      >Password should be minimum of <strong>8 characters </strong>
+    </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Confirm Password</mat-label>
+    <input
+      matInput
+      type="text"
+      placeholder="confirm Password "
+      formControlName="cpassword"
+    />
+    @if(cpassword?.touched && cpassword?.hasError('required') ){
+    <mat-error>Confirmation of Password is <strong>required</strong></mat-error>
+    } @if(cpassword?.touched && cpassword?.hasError('maxlength') ){
+    <mat-error
+      >Password should not exceed <strong>16 characters </strong>
+    </mat-error>
+    } @if(cpassword?.touched && cpassword?.hasError('minlength') ){
     <mat-error
       >Password should be minimum of <strong>8 characters </strong>
     </mat-error>
