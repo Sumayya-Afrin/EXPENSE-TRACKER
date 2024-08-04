@@ -9,10 +9,10 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-registration',
   standalone: true,
   imports: [
     MatButtonModule,
@@ -21,25 +21,25 @@ import { Router, RouterLink } from '@angular/router';
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterLink,
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './registration.component.html',
+  styleUrl: './registration.component.scss',
 })
-export class LoginComponent {
-  login() {
+export class RegistrationComponent {
+  register() {
     throw new Error('Method not implemented.');
   }
-  loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+  registerForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.registerForm = this.fb.group({
+      name: ['', Validators.required],
+      mobile: ['', [Validators.required, Validators.minLength(10)]],
       password: [
         '',
         [
           Validators.required,
-          Validators.email,
           Validators.minLength(8),
           Validators.maxLength(16),
         ],
@@ -47,16 +47,15 @@ export class LoginComponent {
     });
   }
 
-  get email() {
-    return this.loginForm.get('email');
+  get name() {
+    return this.registerForm.get('name');
+  }
+
+  get mobile() {
+    return this.registerForm.get('mobile');
   }
 
   get password() {
-    return this.loginForm.get('password');
-  }
-
-  navigateToRegister() {
-    console.log('click');
-    this.router.navigate(['/register']);
+    return this.registerForm.get('password');
   }
 }

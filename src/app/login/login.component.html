@@ -1,4 +1,5 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+  <h1 style="text-align: center">Login</h1>
   <mat-form-field class="example-full-width">
     <mat-label>Email</mat-label>
     <input
@@ -21,15 +22,27 @@
     />
     @if(password?.touched && password?.hasError('required') ){
     <mat-error>Password is <strong>required</strong></mat-error>
+    } @if(password?.touched && password?.hasError('maxlength') ){
+    <mat-error
+      >Password should not exceed <strong>16 characters </strong>
+    </mat-error>
     } @if(password?.touched && password?.hasError('minlength') ){
     <mat-error
       >Password should be minimum of <strong>8 characters </strong>
     </mat-error>
-    } @if(password?.touched && password?.hasError('minlength') ){
-    <mat-error
-      >Password should be maximum of <strong>16 characters </strong>
-    </mat-error>
     }
   </mat-form-field>
   <button mat-raised-button type="submit" color="primary">Login</button>
+  <p>
+    New User ?
+    <!-- <button
+      mat-button
+      routerLink="/login/register"
+      (click)="navigateToRegister()"
+    >
+      Register here
+    </button> -->
+
+    <a href="login/register">Register here </a>
+  </p>
 </form>
