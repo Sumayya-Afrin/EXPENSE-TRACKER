@@ -1,17 +1,15 @@
-<form formGroup="" (ngSubmit)="login()" class="login-form">
+<form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
   <mat-form-field class="example-full-width">
     <mat-label>Email</mat-label>
     <input
       matInput
       type="email"
       placeholder="Enter Email"
-      formControlName="mail-id"
+      formControlName="email"
     />
-    <!-- @if(mail-id?.touched && poster?.hasError('required') ){
-      <mat-error>Poster URL is <strong>required</strong></mat-error>
-      } @if(poster?.touched && poster?.hasError('invalidUrl') ){
-      <mat-error> <strong>Invalid </strong> URL</mat-error>
-      } -->
+    @if(email?.touched && email?.hasError('required') ){
+    <mat-error>Email is <strong>required</strong></mat-error>
+    }
   </mat-form-field>
   <mat-form-field class="example-full-width">
     <mat-label>Password</mat-label>
@@ -21,11 +19,17 @@
       placeholder="Enter Password"
       formControlName="password"
     />
-    <!-- @if(mail-id?.touched && poster?.hasError('required') ){
-      <mat-error>Poster URL is <strong>required</strong></mat-error>
-      } @if(poster?.touched && poster?.hasError('invalidUrl') ){
-      <mat-error> <strong>Invalid </strong> URL</mat-error>
-      } -->
+    @if(password?.touched && password?.hasError('required') ){
+    <mat-error>Password is <strong>required</strong></mat-error>
+    } @if(password?.touched && password?.hasError('minlength') ){
+    <mat-error
+      >Password should be minimum of <strong>8 characters </strong>
+    </mat-error>
+    } @if(password?.touched && password?.hasError('minlength') ){
+    <mat-error
+      >Password should be maximum of <strong>16 characters </strong>
+    </mat-error>
+    }
   </mat-form-field>
   <button mat-raised-button type="submit" color="primary">Login</button>
 </form>

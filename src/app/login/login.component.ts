@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {
   FormBuilder,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
@@ -24,8 +25,31 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  loginForm: FormGroup;
   login() {
     throw new Error('Method not implemented.');
+  }
+  loginForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      email: ['', Validators.required],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.minLength(8),
+          Validators.maxLength(16),
+        ],
+      ],
+    });
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
   }
 }
