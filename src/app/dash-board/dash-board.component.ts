@@ -9,11 +9,16 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { Pipe } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { ExpenseService } from '../expense.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { IUser } from '../app.component';
+import { ITransaction } from '../app.component';
+import { ISavingGoal } from '../app.component';
 
 @Component({
   selector: 'app-dash-board',
@@ -35,7 +40,32 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
   styleUrl: './dash-board.component.scss',
 })
 export class DashBoardComponent {
+  user!: IUser;
   balance: number = 0;
   transactions: any[] = [];
   savingsGoals: any[] = [];
+  recentTransactions: any;
+  isLoading: boolean = true;
+  msg = '';
+  name: any;
+
+  constructor(
+    private expenseService: ExpenseService,
+    private route: ActivatedRoute, // DI
+    private sanitizer: DomSanitizer
+  ) {}
+
+  ngOnInit() {
+    let id = this.route.snapshot.paramMap.get('id') as string; // From URL
+    this.expenseService
+      .getUserDetailsById(id)
+      .then((data) => {
+        this.user = data;
+        this.isLoading = false;
+      })
+      .catch(() => {
+        this.isLoading = false;
+        this.msg = 'Something went wrong';
+      });
+  }
 }

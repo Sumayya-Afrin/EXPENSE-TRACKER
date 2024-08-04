@@ -3,14 +3,17 @@
     <mat-card-header> My Dashboard</mat-card-header>
   </mat-card>
   <mat-card-content>
+    <p>{{ user.currentBalance }}</p>
     <p>Current Balance :</p>
     <p>Recent Transactions:</p>
     <mat-list>
-      <mat-list-item *ngFor="let transaction of transactions">
+      <mat-list-item>
+        @for(transaction of transactions ; track $index){
         <span
           >{{ transaction.date | date }} - {{ transaction.description }}:
           {{ transaction.amount | currency }}</span
         >
+        }
       </mat-list-item>
     </mat-list>
     <p>Savings Goals:</p>

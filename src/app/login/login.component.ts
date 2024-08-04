@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router, RouterLink } from '@angular/router';
+import { ExpenseService } from '../expense.service';
 
 @Component({
   selector: 'app-login',
@@ -27,12 +28,13 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  login() {
-    throw new Error('Method not implemented.');
-  }
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    public expenseService: ExpenseService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: [
@@ -52,6 +54,22 @@ export class LoginComponent {
 
   get password() {
     return this.loginForm.get('password');
+  }
+
+  async onLogin(): Promise<void> {
+    console.log('login');
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
+      try {
+        const user = await this.expenseService.login(email, password);
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.router.navigate(['/dashboard']);
+        }
+      } catch (error) {
+        console.error('Login failed', error);
+      }
+    }
   }
 
   // navigateToRegister() {
