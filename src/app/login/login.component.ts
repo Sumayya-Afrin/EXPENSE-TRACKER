@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {
   FormBuilder,
-  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
@@ -18,17 +17,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  loginForm!: FormGroup;
-
-  navigateToRegister() {
-    throw new Error('Method not implemented.');
-  }
-  onLogin() {
+  loginForm: FormGroup;
+  login() {
     throw new Error('Method not implemented.');
   }
 }

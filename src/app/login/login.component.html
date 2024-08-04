@@ -1,28 +1,31 @@
-<form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-container">
-  <mat-form-field>
+<form formGroup="" (ngSubmit)="login()" class="login-form">
+  <mat-form-field class="example-full-width">
     <mat-label>Email</mat-label>
-    <input matInput formControlName="email" type="email" />
-    <mat-error *ngIf="loginForm.get('email').hasError('required')"
-      >Email is required</mat-error
-    >
-    <mat-error *ngIf="loginForm.get('email').hasError('email')"
-      >Invalid email format</mat-error
-    >
+    <input
+      matInput
+      type="email"
+      placeholder="Enter Email"
+      formControlName="mail-id"
+    />
+    <!-- @if(mail-id?.touched && poster?.hasError('required') ){
+      <mat-error>Poster URL is <strong>required</strong></mat-error>
+      } @if(poster?.touched && poster?.hasError('invalidUrl') ){
+      <mat-error> <strong>Invalid </strong> URL</mat-error>
+      } -->
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="example-full-width">
     <mat-label>Password</mat-label>
-    <input matInput formControlName="password" type="password" />
-    <mat-error *ngIf="loginForm.get('password').hasError('required')"
-      >Password is required</mat-error
-    >
+    <input
+      matInput
+      type="password"
+      placeholder="Enter Password"
+      formControlName="password"
+    />
+    <!-- @if(mail-id?.touched && poster?.hasError('required') ){
+      <mat-error>Poster URL is <strong>required</strong></mat-error>
+      } @if(poster?.touched && poster?.hasError('invalidUrl') ){
+      <mat-error> <strong>Invalid </strong> URL</mat-error>
+      } -->
   </mat-form-field>
-  <button
-    mat-raised-button
-    color="primary"
-    type="submit"
-    [disabled]="loginForm.invalid"
-  >
-    Login
-  </button>
-  <p>New user? <a (click)="navigateToRegister()">Register here</a></p>
+  <button mat-raised-button type="submit" color="primary">Login</button>
 </form>
